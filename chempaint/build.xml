@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<project name="ChempaintPlugin" default="install" basedir=".">
+  <!-- always be java 1.5 compatible -->
+  <property name="ant.build.javac.target" value="1.5"/>
+  <property name="ant.build.javac.source" value="1.5"/>
+  
+  <property name="base.name" value="chempaint"/>
+  <property name="jar.name" value="${base.name}.jar"/>
+  <property name="pathvisio.dir" value="../../pathvisio"/>
+
+  <property environment="env"/>
+  <property name="install.dir" value="${env.HOME}/.PathVisio/plugins/"/>
+  
+  <path id="project.class.path">
+	<path id="project.class.path">
+		<pathelement location="${pathvisio.dir}/pathvisio.jar"/>
+		<fileset dir="lib">
+			<include name="cdk-*.jar"/>
+		</fileset>
+		<fileset dir="${pathvisio.dir}/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+  </path>
+  
+  <target name="prepare">
+	<mkdir dir="build/code"/>
+	<fail message="Can't find ${pathvisio.dir}/pathvisio.jar, please specify the path to pathvisio with -Dpathvisio.dir=....">
+		<condition>
+			<not><available file="${pathvisio.dir}/pathvisio.jar"/></not>
+		</condition>
+	</fail>
+  </target>
+  
+  <target name="build" depends="prepare">
+	<javac srcdir="."
+		   includes="**"
+		   debug="true"
+		   destdir="build/code">
+	  <classpath refid="project.class.path"/>
+	</javac>
+  </target>
+  
+  <target name="jar" depends="build">
+	<unjar dest="build/libs">
+		<fileset dir="lib" includes="*.jar" />
+	</unjar>
+  	<jar jarfile="${jar.name}">
+		<manifest>
+			<attribute name="PathVisio-Plugin-Class" value="org.pathvisio.plugins.chempaint.ChemicalStructurePlugin"/>
+		</manifest>
+	  <fileset dir="build/code" includes="**/*.class"/>
+	  <fileset dir="build/libs" includes="**/*.class"/>
+	</jar>
+  </target>
+
+  <target name="install" depends="jar">
+	<copy file="${jar.name}"
+		  toDir="${install.dir}"/>
+  </target>
+
+  <target name="clean">
+	<delete dir="build"/>
+  </target>
+
+  <target name="dist-clean" depends="clean">
+	<delete file="${jar.name}"/>
+  </target>
+
+</project>
