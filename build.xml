@@ -1,12 +1,8 @@
 <?xml version="1.0"?>
-<project name="ChempaintPlugin" default="jar" basedir=".">
-  
-  <property name="base.name" value="chempaint"/>
+<project name="chempaint" default="jar" basedir=".">
   
   <property name="pathvisio.dir" value="../.."/>
 
-  <property name="plugin.class" value="org.pathvisio.plugins.chempaint.ChemicalStructurePlugin"/>
-  
   	<path id="project.class.path">
 		<fileset dir="${pathvisio.dir}/modules">
 			<include name="org.pathvisio.core.jar"/>
