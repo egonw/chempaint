@@ -124,7 +124,7 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 	}
 
 	public void applicationEvent(ApplicationEvent e) {
-		if(e.getType() == ApplicationEvent.VPATHWAY_CREATED) {
+		if(e.getType() == ApplicationEvent.Type.VPATHWAY_CREATED) {
 			((VPathway)e.getSource()).addSelectionListener(this);
 		}
 	}
