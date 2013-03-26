@@ -3,6 +3,11 @@
   
   <property name="pathvisio.dir" value="../.."/>
 
+	<!-- embedded jars are embedded in the resulting bundle -->
+	<path id="embed.jars">
+		<fileset dir="lib" includes="*.jar"/>
+	</path>
+
   	<path id="project.class.path">
 		<fileset dir="${pathvisio.dir}/modules">
 			<include name="org.pathvisio.core.jar"/>
@@ -12,13 +17,12 @@
 		<fileset dir="${pathvisio.dir}/lib">
 			<include name="org.bridgedb.jar"/>
 			<include name="org.bridgedb.bio.jar"/>
-			<include name="org.eclipse.osgi.jar"/>
+			<include name="felix.jar"/>
 		</fileset>
-		<fileset dir="lib">
-			<include name="*.jar"/>
-		</fileset>			
 	</path>
 
-  <import file="${pathvisio.dir}/plugin-common.xml" />
+	<!-- Use a future version of plugin-common.xml,
+		Until we have time to update the other plugins -->
+    <import file="${pathvisio.dir}/plugin-common-future.xml" />
 
 </project>
