@@ -23,6 +23,6 @@
 
 	<!-- Use a future version of plugin-common.xml,
 		Until we have time to update the other plugins -->
-    <import file="${pathvisio.dir}/plugin-common-future.xml" />
+    <import file="${pathvisio.dir}/plugin-common.xml" />
 
 </project>
