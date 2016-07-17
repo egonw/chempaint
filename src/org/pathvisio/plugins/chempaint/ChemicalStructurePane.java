@@ -19,6 +19,8 @@ package org.pathvisio.plugins.chempaint;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -223,22 +225,30 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		private static final long serialVersionUID = -1106909126317547372L;
 		private Image image;
 		private SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());
+		private IAtomContainer mol;
 		
 		public void setMolecule(String smiles) throws CDKException {
 			if (smiles == null || smiles.length() == 0) {
 				image = null;
+				mol = null;
 				return;
 			}
 			System.out.println("New smiles: " + smiles);
-			IAtomContainer mol = sp.parseSmiles(smiles);
+			this.mol = sp.parseSmiles(smiles);
 			StructureDiagramGenerator sdg = new StructureDiagramGenerator(mol);
 			sdg.generateCoordinates();
+			recreateImage();
+		}
+		
+		public void recreateImage() throws CDKException {
+			if (mol == null) return;
 			DepictionGenerator generator = new DepictionGenerator()
 					.withSize(this.getWidth(), this.getHeight())
 					.withFillToFit()
 					.withMargin(15.0);
 			Depiction depiction = generator.depict(mol);
 			image = depiction.toImg();
+			this.repaint();
 		}
 		
 		@Override
@@ -251,7 +261,7 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		}
 	}
 	
-	public ChemicalStructurePane (SwingEngine se)
+	public ChemicalStructurePane (final SwingEngine se)
 	{
 		Engine engine = se.getEngine();
 		engine.addApplicationEventListener(this);
@@ -265,6 +275,18 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 
 		panel = new MolViewerPanel();
 		add (panel, BorderLayout.CENTER);		
+
+		this.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                System.out.println("componentResized");
+                super.componentResized(e);
+                try {
+					panel.recreateImage();
+				} catch (CDKException e1) {
+					e1.printStackTrace();
+				}
+            }
+        });
 	}
 	
 	
