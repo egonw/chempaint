@@ -102,6 +102,12 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		}
 
 	}
+	
+	@Override
+	public void repaint() {
+		super.repaint();
+		if (panel != null) panel.repaint();
+	}
 		
 	public void selectionEvent(SelectionEvent e) 
 	{
@@ -197,6 +203,7 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		try
 		{
 			panel.setMolecule(newText);
+			repaint();
 		} catch (Exception e) {
 			Logger.log.error ("Chempaint error", e);
 		};
@@ -228,7 +235,8 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 			super.paintComponent(g);
 			System.out.println("Drawing the molecule");
 	         g.drawImage(image, 0, 0, null);
-		}		
+	         se.getFrame().repaint();
+		}
 	}
 	
 	public ChemicalStructurePane (SwingEngine se)
