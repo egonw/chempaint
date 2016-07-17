@@ -73,6 +73,7 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		
 		if(e == null || e.getObjectType() != ObjectType.DATANODE) {
 			input = null;
+			setText(null);
 		} else {
 			input = e;
 			input.addListener(this);
@@ -120,6 +121,8 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 				if(o instanceof GeneProduct) {
 					setInput(((GeneProduct)o).getPathwayElement());
 					break; //Selects the last, TODO: use setGmmlDataObjects
+				} else {
+					setInput(null);
 				}
 			}
 			break;
@@ -170,8 +173,10 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		void performTask() 
 		{
 			// return unless we have a valid datanode.
-			if (e == null) return;
-			if (e.getObjectType() != ObjectType.DATANODE) return;
+			if (e == null || e.getObjectType() != ObjectType.DATANODE) {
+				setText(null);
+				return;
+			}
 			Xref ref = e.getXref();
 			IDMapper gdb = gdbManager.getCurrentGdb();
 			try
@@ -186,12 +191,13 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 							gdbManager.getCurrentGdb().getAttributes (Utils.oneOf(destrefs), "SMILES"));
 					if(input == e) setText(smiles);
 				} else {
-					setText("CCOCN");
+					setText(null);
 				}
 			}
 			catch (IDMapperException e)
 			{
 				Logger.log.error ("while getting cross refs", e);
+				setText(null);
 			}
 		}
 	}
@@ -200,8 +206,7 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 	
 	private void setText(String newText) {
 		text = newText;
-		try
-		{
+		try {
 			panel.setMolecule(newText);
 			repaint();
 		} catch (Exception e) {
@@ -220,6 +225,10 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		private SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		
 		public void setMolecule(String smiles) throws CDKException {
+			if (smiles == null || smiles.length() == 0) {
+				image = null;
+				return;
+			}
 			System.out.println("New smiles: " + smiles);
 			IAtomContainer mol = sp.parseSmiles(smiles);
 			StructureDiagramGenerator sdg = new StructureDiagramGenerator(mol);
@@ -233,8 +242,10 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			System.out.println("Drawing the molecule");
-			g.drawImage(image, 0, 0, null);
+			if (image != null) {
+				System.out.println("Drawing the molecule");
+				g.drawImage(image, 0, 0, null);
+			}
 		}
 	}
 	
