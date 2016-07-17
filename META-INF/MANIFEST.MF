@@ -1,19 +1,30 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: pvplugins-chempaint
+Bundle-Name: ChemPaint for PathVisio
 Bundle-SymbolicName: pvplugins-chempaint
-Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: lib/cdk-applications.jar,
- lib/cdk-core.jar,
- lib/cdk-data.jar,
- lib/cdk-interfaces.jar,
- lib/cdk-render.jar,
- lib/cdk-sdg.jar,
- lib/cdk-smiles.jar,
- lib/cdk-standard.jar,
- lib/cdk-valencycheck.jar,
- lib/jgrapht.jar,
- lib/vecmath1.2.jar
+Bundle-Version: 2.0.0.qualifier
+Bundle-Description: PathVisio plugin that shows 2D diagrams for
+  metabolites if the SMILES is given in the BridgeDb metabolite
+  identifier database.
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-DocURL: https://github.com/egonw/chempaint
+Bundle-Icon: chempaintPathVisioIcon.png
+Bundle-ClassPath: lib/beam-core-0.9.1.jar,
+  lib/beam-func-0.9.1.jar,
+  lib/cdk-core-1.5.14-SNAPSHOT.jar,
+  lib/cdk-depict-1.5.14-SNAPSHOT.jar,
+  lib/cdk-interfaces-1.5.14-SNAPSHOT.jar,
+  lib/cdk-isomorphism-1.5.14-SNAPSHOT.jar,
+  lib/cdk-render-1.5.14-SNAPSHOT.jar,
+  lib/cdk-renderawt-1.5.14-SNAPSHOT.jar,
+  lib/cdk-renderbasic-1.5.14-SNAPSHOT.jar,
+  lib/cdk-sdg-1.5.14-SNAPSHOT.jar,
+  lib/cdk-silent-1.5.14-SNAPSHOT.jar,
+  lib/cdk-smiles-1.5.14-SNAPSHOT.jar,
+  lib/cdk-standard-1.5.14-SNAPSHOT.jar,
+  lib/guava-17.0.jar,
+  lib/jgrapht.jar,
+  lib/vecmath1.2.jar
 Export-Package: org.pathvisio.plugins.chempaint
 Require-Bundle: org.pathvisio.core;bundle-version="2.0.11",
  org.pathvisio.gui;bundle-version="2.0.11",
