@@ -17,6 +17,8 @@
 package org.pathvisio.plugins.chempaint;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -26,12 +28,12 @@ import org.bridgedb.IDMapper;
 import org.bridgedb.IDMapperException;
 import org.bridgedb.Xref;
 import org.bridgedb.bio.BioDataSource;
-import org.openscience.cdk.DefaultChemObjectBuilder;
-import org.openscience.cdk.Molecule;
-import org.openscience.cdk.applications.swing.MoleculeListPanel;
-import org.openscience.cdk.applications.swing.MoleculeViewer2D;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.depict.Depiction;
+import org.openscience.cdk.depict.DepictionGenerator;
+import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.layout.StructureDiagramGenerator;
+import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
 import org.pathvisio.core.ApplicationEvent;
 import org.pathvisio.core.Engine;
@@ -44,10 +46,10 @@ import org.pathvisio.core.model.PathwayElementEvent;
 import org.pathvisio.core.model.PathwayElementListener;
 import org.pathvisio.core.util.Utils;
 import org.pathvisio.core.view.GeneProduct;
-import org.pathvisio.core.view.VPathway;
-import org.pathvisio.core.view.VPathwayElement;
 import org.pathvisio.core.view.SelectionBox.SelectionEvent;
 import org.pathvisio.core.view.SelectionBox.SelectionListener;
+import org.pathvisio.core.view.VPathway;
+import org.pathvisio.core.view.VPathwayElement;
 import org.pathvisio.gui.SwingEngine;
 
 public class ChemicalStructurePane extends JPanel implements SelectionListener, PathwayElementListener, ApplicationEventListener
@@ -177,6 +179,8 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 					String smiles = Utils.oneOf (
 							gdbManager.getCurrentGdb().getAttributes (Utils.oneOf(destrefs), "SMILES"));
 					if(input == e) setText(smiles);
+				} else {
+					setText("CCOCN");
 				}
 			}
 			catch (IDMapperException e)
@@ -192,25 +196,8 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		text = newText;
 		try
 		{
-			//MoleculeListViewer mlv;
-			//mlv = new MoleculeListViewer();
-			//mlv.setMolViewDim(new Dimension(400, 600));
-			SmilesParser sp = new SmilesParser(DefaultChemObjectBuilder.getInstance());
-			IMolecule mol=sp.parseSmiles(newText);
-			StructureDiagramGenerator sdg = new StructureDiagramGenerator();
-			MoleculeViewer2D mv = new MoleculeViewer2D();
-	//        mv.getRenderer2DModel().setDrawNumbers(toggleNumbers.getState());
-	//        mv.getRenderer2DModel().setKekuleStructure(toggleSymbols.getState());
-	//        mv.getRenderer2DModel().setShowImplicitHydrogens(toggleHydrogens.getState());
-			mv.getRenderer2DModel().setShowAtomTypeNames(true);
-			sdg.setMolecule((Molecule) mol.clone());
-			sdg.generateCoordinates();
-			mv.setAtomContainer(sdg.getMolecule());
-			panel.clear();
-			panel.addStructure(mv);
-		}
-		catch (Exception e)
-		{
+			panel.setMolecule(newText);
+		} catch (Exception e) {
 			Logger.log.error ("Chempaint error", e);
 		};
 	}
@@ -218,7 +205,31 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 	private static final long serialVersionUID = 1L;
 
 	private final SwingEngine se;
-	private final MoleculeListPanel panel;
+	private final MolViewerPanel panel;
+	
+	private class MolViewerPanel extends JPanel {
+		private static final long serialVersionUID = -1106909126317547372L;
+		private Image image;
+		
+		public void setMolecule(String smiles) throws CDKException {
+			System.out.println("New smiles: " + smiles);
+			SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());
+			IAtomContainer mol = sp.parseSmiles(smiles);
+			StructureDiagramGenerator sdg = new StructureDiagramGenerator(mol);
+			sdg.generateCoordinates();
+			DepictionGenerator generator = new DepictionGenerator()
+				.withSize(this.getWidth(), this.getHeight());
+			Depiction depiction = generator.depict(mol);
+			image = depiction.toImg();
+		}
+		
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			System.out.println("Drawing the molecule");
+	         g.drawImage(image, 0, 0, null);
+		}		
+	}
 	
 	public ChemicalStructurePane (SwingEngine se)
 	{
@@ -232,22 +243,8 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		
 		setLayout (new BorderLayout());
 
-		panel = new MoleculeListPanel();		
-		add (panel, BorderLayout.CENTER);
-		//		
-//		 try {
-//			   SmilesParser sp = new SmilesParser(DefaultChemObjectBuilder.getInstance());
-//			   IMolecule m = sp.parseSmiles("c1ccccc1");
-//			   MoleculeSet ms = new MoleculeSet();
-//			   ms.addMolecule(m);
-//			   ChemModel cm = new ChemModel();
-//			   cm.setMoleculeSet(ms);
-//			   chem.processChemModel(cm);
-//			 } catch (InvalidSmilesException ise) {
-//			 }
-
-			 
-		
+		panel = new MolViewerPanel();
+		add (panel, BorderLayout.CENTER);		
 	}
 	
 	

@@ -2,5 +2,71 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="lib/cdk-core-1.5.14-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/cdk-interfaces-1.5.14-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/cdk-silent-1.5.14-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/jgrapht.jar"/>
+	<classpathentry kind="lib" path="lib/vecmath1.2.jar"/>
+	<classpathentry kind="lib" path="lib/cdk-smiles-1.5.14-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/cdk-standard-1.5.14-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/cdk-sdg-1.5.14-SNAPSHOT.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.pathvisio.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.pathvisio.gui"/>
+	<classpathentry kind="lib" path="/pv-libs/bindex.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/com.springsource.org.apache.commons.logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/com.springsource.org.jdom-1.1.0.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/commons-codec-1.5.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/commons-math-2.0.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/derby.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/derbyclient.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/felix.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/h2.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/hsqldb.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/javax.activation_1.1.0.v201105071233.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/javax.servlet_3.0.0.v201103241727.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/javax.wsdl_1.5.1.v201012040544.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/javax.xml_1.3.4.v201005080400.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/javax.xml.rpc_1.1.0.v201005080400.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/javax.xml.soap_1.3.0.v201105210645.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/jnlp.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/junit.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.axis_1.4.0.v201005080400.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.bridge_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.css_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.dom_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.dom.svg_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.ext.awt_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.extension_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.parser_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.svggen_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.transcoder_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.util_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.util.gui_1.7.0.v200903091627.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.batik.xml_1.7.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.commons.discovery_0.2.0.v201004190315.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.felix.bundlerepository-1.6.6.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.xalan_2.7.1.v201005080400.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.xerces_2.9.0.v201101211617.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.xml.resolver_1.2.0.v201005080400.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.apache.xml.serializer_2.7.1.v201005080400.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.bridgedb.bio.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.bridgedb.gui.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.bridgedb.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.bridgedb.rdb.construct.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.bridgedb.rdb.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.bridgedb.webservice.bridgerest.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.eclipse.osgi.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.pathvisio.jgoodies.forms.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.pathvisio.pdftranscoder.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.pathvisio.ws.commons.util.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.pathvisio.xerces.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.pathvisio.xmlrpc.client.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.pathvisio.xmlrpc.common.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.w3c.css.sac_1.3.1.v200903091627.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.w3c.dom.events_3.0.0.draft20060413_v201105210656.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.w3c.dom.smil_1.0.1.v200903091627.jar"/>
+	<classpathentry kind="lib" path="/pv-libs/org.w3c.dom.svg_1.1.0.v201011041433.jar"/>
+	<classpathentry kind="lib" path="lib/cdk-depict-1.5.14-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
