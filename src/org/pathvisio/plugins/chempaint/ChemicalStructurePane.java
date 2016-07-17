@@ -217,15 +217,15 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 	private class MolViewerPanel extends JPanel {
 		private static final long serialVersionUID = -1106909126317547372L;
 		private Image image;
+		private SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		
 		public void setMolecule(String smiles) throws CDKException {
 			System.out.println("New smiles: " + smiles);
-			SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());
 			IAtomContainer mol = sp.parseSmiles(smiles);
 			StructureDiagramGenerator sdg = new StructureDiagramGenerator(mol);
 			sdg.generateCoordinates();
 			DepictionGenerator generator = new DepictionGenerator()
-				.withSize(this.getWidth(), this.getHeight());
+					.withSize(this.getWidth(), this.getHeight());
 			Depiction depiction = generator.depict(mol);
 			image = depiction.toImg();
 		}
@@ -234,8 +234,7 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			System.out.println("Drawing the molecule");
-	         g.drawImage(image, 0, 0, null);
-	         se.getFrame().repaint();
+			g.drawImage(image, 0, 0, null);
 		}
 	}
 	
