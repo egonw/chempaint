@@ -234,7 +234,9 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 			StructureDiagramGenerator sdg = new StructureDiagramGenerator(mol);
 			sdg.generateCoordinates();
 			DepictionGenerator generator = new DepictionGenerator()
-					.withSize(this.getWidth(), this.getHeight());
+					.withSize(this.getWidth(), this.getHeight())
+					.withFillToFit()
+					.withMargin(15.0);
 			Depiction depiction = generator.depict(mol);
 			image = depiction.toImg();
 		}
