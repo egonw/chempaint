@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ChemView
 Bundle-SymbolicName: pvplugins-chempaint
-Bundle-Version: 2.0.1
+Bundle-Version: 2.0.2
 Bundle-Description: PathVisio plugin that shows 2D diagrams for
   metabolites if the SMILES is given in the BridgeDb metabolite
   identifier database.
