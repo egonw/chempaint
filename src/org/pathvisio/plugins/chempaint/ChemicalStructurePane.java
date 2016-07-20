@@ -40,7 +40,6 @@ import org.openscience.cdk.smiles.SmilesParser;
 import org.pathvisio.core.ApplicationEvent;
 import org.pathvisio.core.Engine;
 import org.pathvisio.core.Engine.ApplicationEventListener;
-import org.pathvisio.core.data.GdbManager;
 import org.pathvisio.core.debug.Logger;
 import org.pathvisio.core.model.ObjectType;
 import org.pathvisio.core.model.PathwayElement;
@@ -62,8 +61,6 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 	final static int maxThreads = 1;
 	volatile ThreadGroup threads;
 	volatile Thread lastThread;
-	
-	private GdbManager gdbManager;
 	
 	public void setInput(final PathwayElement e) 
 	{
@@ -176,11 +173,12 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		{
 			// return unless we have a valid datanode.
 			if (e == null || e.getObjectType() != ObjectType.DATANODE) {
+				System.out.println("No valid data node: " + e);
 				setText(null);
 				return;
 			}
 			Xref ref = e.getXref();
-			IDMapper gdb = gdbManager.getCurrentGdb();
+			IDMapper gdb = se.getGdbManager().getCurrentGdb();
 			try
 			{
 				//TODO: Assumption is that SMILES attribute is always on HMDB id. 
@@ -190,15 +188,18 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 				if (destrefs.size() > 0)
 				{
 					String smiles = Utils.oneOf (
-							gdbManager.getCurrentGdb().getAttributes (Utils.oneOf(destrefs), "SMILES"));
+							se.getGdbManager().getCurrentGdb().getAttributes (Utils.oneOf(destrefs), "SMILES"));
+					System.out.println("Found a SMILES for this node: " + smiles);
 					if(input == e) setText(smiles);
 				} else {
+					System.out.println("No HMDB IDs found. Current mapper: " + gdb.getClass().getName());
 					setText(null);
 				}
 			}
 			catch (IDMapperException e)
 			{
 				Logger.log.error ("while getting cross refs", e);
+				e.printStackTrace();
 				setText(null);
 			}
 		}
@@ -268,7 +269,6 @@ public class ChemicalStructurePane extends JPanel implements SelectionListener, 
 		VPathway vp = engine.getActiveVPathway();
 		if(vp != null) vp.addSelectionListener(this);
 		
-		this.gdbManager = se.getGdbManager();
 		this.se = se;
 		
 		setLayout (new BorderLayout());
