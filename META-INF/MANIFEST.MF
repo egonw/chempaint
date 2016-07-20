@@ -24,7 +24,8 @@ Bundle-ClassPath: lib/beam-core-0.9.1.jar,
   lib/cdk-standard-1.5.14-SNAPSHOT.jar,
   lib/guava-17.0.jar,
   lib/jgrapht.jar,
-  lib/vecmath1.2.jar
+  lib/vecmath1.2.jar,
+  pvplugins-bridgedbSettings
 Export-Package: org.pathvisio.plugins.chempaint
 Require-Bundle: org.pathvisio.core;bundle-version="2.0.11",
  org.pathvisio.gui;bundle-version="2.0.11",
